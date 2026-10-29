@@ -14,5 +14,8 @@ def lista_usuarios(request):
 def criar_usuario(request):
     return render(request, 'perfil/criar_usu.html', {})
 
+def editar_usuario(request):
+    return render(request, 'perfil/editar_usu.html', {})
+
 def desativar_usuario(request):
     return render(request, 'perfil/desativar_usu.html', {})
