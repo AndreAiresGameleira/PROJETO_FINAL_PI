@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Desativar usuário{% endblock %}
+
+{% block content %}
+<div class="card confirm">
+    <div class="confirm-icon">
+        <svg class="icon"><use href="#i-alert"/></svg>
+    </div>
+
+    <h1>Tem certeza?</h1>
+
+    <p>
+        Você vai desativar o usuário
+        <strong>{% if usuario.get_full_name %}{{ usuario.get_full_name }}{% else %}{{ usuario.username }}{% endif %}</strong>.
+    </p>
+    <p>
+        Ele não conseguirá mais fazer login, mas os chamados dele continuam salvos no histórico.
+    </p>
+
+    <form method="post" class="confirm-actions">
+        {% csrf_token %}
+        <a href="{% url 'lista_usuarios' %}" class="btn btn-outline">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Sim, desativar</button>
+    </form>
+</div>
+{% endblock %}

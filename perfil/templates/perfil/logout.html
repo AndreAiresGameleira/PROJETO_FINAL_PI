@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Sessão encerrada{% endblock %}
+
+{% block body %}
+<div class="auth">
+
+    <section class="auth-brand">
+        <svg class="icon"><use href="#i-headset"/></svg>
+        <h1 class="brand-title">Ajuda<em>Aqui</em></h1>
+        <p>Seu suporte, mais simples.</p>
+    </section>
+
+    <section class="auth-form-wrap">
+        <div class="card auth-card text-center">
+            <div class="confirm-icon success">
+                <svg class="icon"><use href="#i-check-circle"/></svg>
+            </div>
+            <h2>Você saiu do sistema</h2>
+            <p class="subtitle">Sua sessão foi encerrada com segurança.</p>
+            <a href="{% url 'login' %}" class="btn btn-primary btn-block">Entrar novamente</a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

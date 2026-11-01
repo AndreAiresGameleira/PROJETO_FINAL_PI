@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <div>
+        <h1>Usuários</h1>
+        <p class="subtitle">Gerencie as contas que têm acesso ao sistema.</p>
+    </div>
+    <a href="{% url 'criar_usu' %}" class="btn btn-primary">
+        <svg class="icon"><use href="#i-plus"/></svg> Novo usuário
+    </a>
+</div>
+
+<div class="card table-card">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Perfil</th>
+                    <th>Situação</th>
+                    <th class="text-right">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in usuarios %}
+                <tr>
+                    <td>
+                        <div class="user-cell">
+                            <div class="avatar">{{ u.get_full_name|default:u.username|slice:":1"|upper }}</div>
+                            <div>
+                                <strong>{{ u.get_full_name|default:u.username }}</strong>
+                                <span class="muted">@{{ u.username }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ u.email|default:"-" }}</td>
+                    <td>
+                        {% if u.is_superuser or u.perfil.tipo == 'admin' %}
+                            <span class="badge badge-admin">Administrador</span>
+                        {% elif u.perfil.tipo == 'tecnico' %}
+                            <span class="badge badge-tecnico">Técnico</span>
+                        {% else %}
+                            <span class="badge badge-usuario">Usuário</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if u.is_active %}
+                            <span class="badge badge-ativo">Ativo</span>
+                        {% else %}
+                            <span class="badge badge-inativo">Inativo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="{% url 'editar_usuario' u.pk %}" class="icon-btn" title="Editar" aria-label="Editar {{ u.username }}">
+                                <svg class="icon"><use href="#i-edit"/></svg>
+                            </a>
+                            {% if u.is_active %}
+                            <a href="{% url 'desativar_usuario' u.pk %}" class="icon-btn danger" title="Desativar" aria-label="Desativar {{ u.username }}">
+                                <svg class="icon"><use href="#i-ban"/></svg>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="empty">Nenhum usuário cadastrado ainda. Clique em "Novo usuário" para criar o primeiro.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar usuário{% endblock %}
+
+{% block content %}
+<a href="{% url 'lista_usuarios' %}" class="back-link">
+    <svg class="icon"><use href="#i-arrow-left"/></svg> Voltar
+</a>
+
+<div class="page-head">
+    <div>
+        <h1>Editar usuário</h1>
+        <p class="subtitle">Altere os dados de @{{ usuario.username }}.</p>
+    </div>
+</div>
+
+<div class="card form-card">
+    <form method="post">
+        {% csrf_token %}
+        {% include 'perfil/_form_usu.html' with botao='Salvar alterações' %}
+    </form>
+</div>
+{% endblock %}
