@@ -1,0 +1,43 @@
+<h1>Painel do Técnico</h1>
+
+<h2>Chamados disponíveis</h2>
+
+{% for chamado in chamados_disponiveis %}
+    <hr>
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>{{ chamado.descricao }}</p>
+
+    <p>Prioridade: {{ chamado.get_prioridade_display }}</p>
+
+    <a href="{% url 'detalhe_chamado' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+    <form method="POST" action="{% url 'assumir_chamado' chamado.pk %}">
+        {% csrf_token %}
+        <button type="submit">Assumir chamado</button>
+    </form>
+
+{% empty %}
+    <p>Não existem chamados disponíveis.</p>
+{% endfor %}
+
+
+<h2>Meus chamados</h2>
+
+{% for chamado in meus_chamados %}
+    <hr>
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>Status: {{ chamado.get_status_display }}</p>
+
+    <a href="{% url 'detalhe_chamado' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+{% empty %}
+    <p>Você ainda não assumiu nenhum chamado.</p>
+{% endfor %}

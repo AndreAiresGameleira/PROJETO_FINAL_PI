@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sair - Ajuda Aqui</title>
+</head>
+
+<body>
+
+    <h1>Deseja sair do sistema?</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <button type="submit">
+            Sim, sair
+        </button>
+    </form>
+
+    <a href="/">Cancelar</a>
+
+</body>
+</html>

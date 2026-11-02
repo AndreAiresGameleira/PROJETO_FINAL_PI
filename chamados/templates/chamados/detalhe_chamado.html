@@ -1,0 +1,79 @@
+<h1>{{ chamado.titulo }}</h1>
+
+<p>{{ chamado.descricao }}</p>
+
+<p>Prioridade: {{ chamado.get_prioridade_display }}</p>
+
+<p>Status: {{ chamado.get_status_display }}</p>
+
+<p>Solicitante: {{ chamado.solicitante.username }}</p>
+
+<p>
+    Técnico responsável:
+    {% if chamado.responsavel %}
+        {{ chamado.responsavel.username }}
+    {% else %}
+        Aguardando técnico
+    {% endif %}
+</p>
+
+<hr>
+
+<h2>Comentários</h2>
+
+{% for comentario in comentarios %}
+
+    <p>
+        <strong>{{ comentario.autor.username }}:</strong>
+        {{ comentario.texto }}
+    </p>
+
+{% empty %}
+
+    <p>Nenhum comentário ainda.</p>
+
+{% endfor %}
+
+<hr>
+
+<h2>Adicionar comentário</h2>
+
+<form method="POST" action="{% url 'adicionar_comentario' chamado.pk %}">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Enviar comentário</button>
+
+</form>
+{% if chamado.responsavel == request.user %}
+
+    <hr>
+
+    <h2>Gerenciar chamado</h2>
+
+    {% if chamado.status != 'fechado' %}
+
+        <form method="POST" action="{% url 'atualizar_status' chamado.pk %}">
+
+            {% csrf_token %}
+
+            <input type="hidden" name="status" value="fechado">
+
+            <button type="submit">
+                Fechar chamado
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <p>Este chamado já foi fechado!</p>
+
+    {% endif %}
+
+{% endif %}
+<a href="{% url 'lista_chamados' %}">
+    Voltar aos chamados
+</a>

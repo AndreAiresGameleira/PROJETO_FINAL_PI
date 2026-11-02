@@ -17,28 +17,10 @@ class Chamado(models.Model):
 
     titulo = models.CharField(max_length=150)
     descricao = models.TextField()
-    solicitante = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        related_name='chamados_abertos',
-    )
-    responsavel = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='chamados_assumidos',
-    )
-    status = models.CharField(
-        max_length=20,
-        choices=Status.choices,
-        default=Status.ABERTO,
-    )
-    prioridade = models.CharField(
-        max_length=20,
-        choices=Prioridade.choices,
-        default=Prioridade.MEDIA,
-    )
+    solicitante = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name='chamados_abertos',)
+    responsavel = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL,null=True,blank=True,related_name='chamados_assumidos',)
+    status = models.CharField(max_length=20,choices=Status.choices,default=Status.ABERTO,)
+    prioridade = models.CharField(max_length=20,choices=Prioridade.choices,default=Prioridade.MEDIA,)
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
 
@@ -50,16 +32,8 @@ class Chamado(models.Model):
 
 
 class Comentario(models.Model):
-    chamado = models.ForeignKey(
-        Chamado,
-        on_delete=models.CASCADE,
-        related_name='comentarios',
-    )
-    autor = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        related_name='comentarios_chamados',
-    )
+    chamado = models.ForeignKey(Chamado,on_delete=models.CASCADE,related_name='comentarios',)
+    autor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,related_name='comentarios_chamados',)
     texto = models.TextField()
     criado_em = models.DateTimeField(auto_now_add=True)
 

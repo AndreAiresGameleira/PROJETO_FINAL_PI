@@ -1,0 +1,15 @@
+<h1>Adicionar chamado</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Cadastrar chamado</button>
+
+</form>
+
+<a href="{% url 'lista_chamados' %}">
+    Voltar
+</a>

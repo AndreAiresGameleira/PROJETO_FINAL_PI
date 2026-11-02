@@ -1,0 +1,21 @@
+<h1>Painel do Administrador</h1>
+
+{% for chamado in chamados %}
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>Solicitante: {{ chamado.solicitante.username }}</p>
+
+    <p>Status: {{ chamado.get_status_display }}</p>
+
+    <a href="{% url 'detalhe_chamado' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+    <hr>
+
+{% empty %}
+
+    <p>Nenhum chamado cadastrado.</p>
+
+{% endfor %}
