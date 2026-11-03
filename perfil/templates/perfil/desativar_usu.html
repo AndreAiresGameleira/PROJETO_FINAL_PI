@@ -1,0 +1,17 @@
+{% extends 'base_administrador.html' %}
+
+{% block title %}Desativar usuário{% endblock %}
+
+{% block content %}
+<h1>Desativar usuário</h1>
+
+<p>Tem certeza que deseja desativar este usuário?</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <button type="submit">Sim, desativar</button>
+</form>
+
+<a href="{% url 'lista_usu' %}">Cancelar</a>
+{% endblock %}

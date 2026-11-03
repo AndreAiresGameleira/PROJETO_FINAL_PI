@@ -1,0 +1,45 @@
+{% extends 'base_administrador.html' %}
+
+{% block title %}Painel do administrador{% endblock %}
+
+{% block content %}
+<h1>Painel do Administrador</h1>
+
+{% for chamado in chamados %}
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>Solicitante: {{ chamado.solicitante.username }}</p>
+
+    <p>Status: {{ chamado.get_status_display }}</p>
+
+    <a href="{% url 'detalhe_chamado_admin' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+    <hr>
+
+{% empty %}
+
+    {# TODO backend: apagar os 3 exemplos abaixo e voltar com <p>Nenhum chamado cadastrado.</p> #}
+
+    <h3>Problema no e-mail</h3>
+    <p>Solicitante: André Felipe</p>
+    <p>Status: Aberto</p>
+    <a href="{% url 'detalhe_chamado_admin' 1 %}">Ver detalhes</a>
+    <hr>
+
+    <h3>Acesso ao sistema</h3>
+    <p>Solicitante: Fernanda Lima</p>
+    <p>Status: Em andamento</p>
+    <a href="{% url 'detalhe_chamado_admin' 2 %}">Ver detalhes</a>
+    <hr>
+
+    <h3>Impressora não funciona</h3>
+    <p>Solicitante: Juliana Costa</p>
+    <p>Status: Resolvido</p>
+    <a href="{% url 'detalhe_chamado_admin' 3 %}">Ver detalhes</a>
+    <hr>
+
+{% endfor %}
+{% endblock %}

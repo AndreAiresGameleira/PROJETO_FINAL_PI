@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Sair{% endblock %}
+{% block body_class %}pagina-entrada{% endblock %}
+{% block nav %}{% endblock %}
+{% block topbar %}{% endblock %}
+
+{% block content %}
+<h1>Deseja sair do sistema?</h1>
+
+{# TODO backend: voltar para <form method="POST"> com csrf_token e fazer logout(request) na view #}
+<a href="{% url 'home' %}">
+    <button type="button">Sim, sair</button>
+</a>
+
+<a href="/">Cancelar</a>
+{% endblock %}

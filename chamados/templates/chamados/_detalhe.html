@@ -1,0 +1,104 @@
+{% comment %}
+    Conteúdo do detalhe do chamado, usado pelos 3 perfis (cada um com o seu base).
+    Variáveis recebidas pelo include: voltar, comentar e gerenciar.
+{% endcomment %}
+{% with pk=request.resolver_match.kwargs.pk %}
+
+{# TODO backend: remover os |default (valores de exemplo) quando a view enviar o chamado #}
+<h1>{{ chamado.titulo|default:'Problema no e-mail' }}</h1>
+
+<p>{{ chamado.descricao|default:'Não estou conseguindo enviar e-mails pelo Outlook. Aparece uma mensagem de erro toda vez que tento enviar.' }}</p>
+
+<p>Prioridade: {{ chamado.get_prioridade_display|default:'Média' }}</p>
+
+<p>Status: {{ chamado.get_status_display|default:'Aberto' }}</p>
+
+<p>Solicitante: {{ chamado.solicitante.username|default:'André Felipe' }}</p>
+
+<p>
+    Técnico responsável:
+    {% if chamado.responsavel %}
+        {{ chamado.responsavel.username }}
+    {% else %}
+        Aguardando técnico
+    {% endif %}
+</p>
+
+<hr>
+
+<h2>Comentários</h2>
+
+{% for comentario in comentarios %}
+
+    <p>
+        <strong>{{ comentario.autor.username }}:</strong>
+        {{ comentario.texto }}
+    </p>
+
+{% empty %}
+
+    {# TODO backend: apagar os 2 exemplos abaixo e voltar com <p>Nenhum comentário ainda.</p> #}
+    <p>
+        <strong>André Felipe:</strong>
+        O problema começou hoje de manhã.
+    </p>
+
+    <p>
+        <strong>Suporte:</strong>
+        Olá, estamos verificando o problema e retornaremos em breve.
+    </p>
+
+{% endfor %}
+
+<hr>
+
+<h2>Adicionar comentário</h2>
+
+<form method="POST" action="{% url comentar pk %}">
+
+    {% csrf_token %}
+
+    {# TODO backend: trocar o campo abaixo por {{ form.as_p }} #}
+    <p>
+        <label for="texto">Comentário</label>
+        <textarea id="texto" name="texto"></textarea>
+    </p>
+
+    <button type="submit">Enviar comentário</button>
+
+</form>
+
+{# Só o técnico vê a área de gerenciar. TODO backend: só para o técnico responsável (chamado.responsavel == request.user) #}
+{% if gerenciar %}
+
+    <hr>
+
+    <h2>Gerenciar chamado</h2>
+
+    {% if chamado.status != 'fechado' %}
+
+        <form method="POST" action="{% url 'atualizar_status' pk %}">
+
+            {% csrf_token %}
+
+            <input type="hidden" name="status" value="fechado">
+
+            <button type="submit">
+                Fechar chamado
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <p>Este chamado já foi fechado!</p>
+
+    {% endif %}
+
+{% endif %}
+
+<a href="{% url voltar %}">
+    Voltar aos chamados
+</a>
+
+{% endwith %}

@@ -1,0 +1,51 @@
+{% load static %}<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ajuda Aqui{% endblock %} - Ajuda Aqui</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+    {% block nav %}
+    <aside class="lateral">
+        <a class="marca" href="{% url 'home' %}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+            Ajuda<span>Aqui</span>
+        </a>
+
+        <nav class="menu" aria-label="Principal">
+            {% block menu %}{% endblock %}
+        </nav>
+
+        <a class="sair" href="{% url 'logout' %}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+            Sair
+        </a>
+    </aside>
+    {% endblock %}
+
+    <div class="principal">
+
+        {% block topbar %}
+        <header class="barra-topo">
+            <div class="usuario">
+                <span class="avatar">{{ user.get_username|default:"U"|slice:":1"|upper }}</span>
+                {% block usuario %}{{ user.get_username|default:"Usuário" }}{% endblock %}
+            </div>
+        </header>
+        {% endblock %}
+
+        <main class="conteudo">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="rodape">
+            Ajuda Aqui - Gestão de chamados
+        </footer>
+
+    </div>
+
+</body>
+</html>

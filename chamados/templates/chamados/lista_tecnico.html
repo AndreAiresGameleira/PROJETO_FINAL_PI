@@ -1,0 +1,71 @@
+{% extends 'base_tecnico.html' %}
+
+{% block title %}Painel do técnico{% endblock %}
+
+{% block content %}
+<h1>Painel do Técnico</h1>
+
+<h2>Chamados disponíveis</h2>
+
+{% for chamado in chamados_disponiveis %}
+    <hr>
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>{{ chamado.descricao }}</p>
+
+    <p>Prioridade: {{ chamado.get_prioridade_display }}</p>
+
+    <a href="{% url 'detalhe_chamado_tecnico' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+    <form method="POST" action="{% url 'assumir_chamado' chamado.pk %}">
+        {% csrf_token %}
+        <button type="submit">Assumir chamado</button>
+    </form>
+
+{% empty %}
+    {# TODO backend: apagar o exemplo abaixo e voltar com <p>Não existem chamados disponíveis.</p> #}
+    <hr>
+
+    <h3>Problema no e-mail</h3>
+    <p>Não estou conseguindo enviar e-mails pelo Outlook.</p>
+    <p>Prioridade: Média</p>
+    <a href="{% url 'detalhe_chamado_tecnico' 1 %}">Ver detalhes</a>
+
+    <form method="POST" action="{% url 'assumir_chamado' 1 %}">
+        {% csrf_token %}
+        <button type="submit">Assumir chamado</button>
+    </form>
+{% endfor %}
+
+
+<h2>Meus chamados</h2>
+
+{% for chamado in meus_chamados %}
+    <hr>
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>Status: {{ chamado.get_status_display }}</p>
+
+    <a href="{% url 'detalhe_chamado_tecnico' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+{% empty %}
+    {# TODO backend: apagar os exemplos abaixo e voltar com <p>Você ainda não assumiu nenhum chamado.</p> #}
+    <hr>
+
+    <h3>Acesso ao sistema</h3>
+    <p>Status: Em andamento</p>
+    <a href="{% url 'detalhe_chamado_tecnico' 2 %}">Ver detalhes</a>
+
+    <hr>
+
+    <h3>Impressora não funciona</h3>
+    <p>Status: Resolvido</p>
+    <a href="{% url 'detalhe_chamado_tecnico' 3 %}">Ver detalhes</a>
+{% endfor %}
+{% endblock %}

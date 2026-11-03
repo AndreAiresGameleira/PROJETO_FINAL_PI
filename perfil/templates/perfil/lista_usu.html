@@ -1,0 +1,19 @@
+{% extends 'base_administrador.html' %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block content %}
+<h1>Usuários</h1>
+
+<a href="{% url 'criar_usu' %}">
+    <button type="button">Cadastrar usuário</button>
+</a>
+
+<hr>
+
+<p>Nenhum usuário cadastrado.</p>
+
+{# TODO backend: listar os usuários com links para editar e desativar #}
+<a href="{% url 'editar_usuario' 1 %}">Editar (exemplo)</a>
+<a href="{% url 'desativar_usu' 1 %}">Desativar (exemplo)</a>
+{% endblock %}

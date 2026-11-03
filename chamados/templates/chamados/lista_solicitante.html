@@ -1,0 +1,56 @@
+{% extends 'base_solicitante.html' %}
+
+{% block title %}Meus chamados{% endblock %}
+
+{% block content %}
+<h1>Meus Chamados</h1>
+
+<a href="{% url 'criar_chamado' %}">
+    <button type="button">Adicionar chamado</button>
+</a>
+
+<hr>
+
+{% for chamado in chamados %}
+
+    <h3>{{ chamado.titulo }}</h3>
+
+    <p>{{ chamado.descricao }}</p>
+
+    <p>Prioridade: {{ chamado.get_prioridade_display }}</p>
+
+    <p>Status: {{ chamado.get_status_display }}</p>
+
+    <a href="{% url 'detalhe_chamado' chamado.pk %}">
+        Ver detalhes
+    </a>
+
+    <hr>
+
+{% empty %}
+
+    {# TODO backend: apagar os 3 exemplos abaixo e voltar com <p>Você ainda não abriu nenhum chamado.</p> #}
+
+    <h3>Problema no e-mail</h3>
+    <p>Não estou conseguindo enviar e-mails pelo Outlook.</p>
+    <p>Prioridade: Média</p>
+    <p>Status: Aberto</p>
+    <a href="{% url 'detalhe_chamado' 1 %}">Ver detalhes</a>
+    <hr>
+
+    <h3>Acesso ao sistema</h3>
+    <p>Aparece erro de permissão ao entrar no sistema financeiro.</p>
+    <p>Prioridade: Alta</p>
+    <p>Status: Em andamento</p>
+    <a href="{% url 'detalhe_chamado' 2 %}">Ver detalhes</a>
+    <hr>
+
+    <h3>Impressora não funciona</h3>
+    <p>A impressora do setor não imprime desde ontem.</p>
+    <p>Prioridade: Baixa</p>
+    <p>Status: Resolvido</p>
+    <a href="{% url 'detalhe_chamado' 3 %}">Ver detalhes</a>
+    <hr>
+
+{% endfor %}
+{% endblock %}
