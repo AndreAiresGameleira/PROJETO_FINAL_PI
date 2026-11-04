@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block body_class %}pagina-entrada{% endblock %}
+{% block nav %}{% endblock %}
+{% block topbar %}{% endblock %}
+
+{% block content %}
+<h1>Ajuda Aqui</h1>
+
+<h2>Entrar no sistema</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {# TODO backend: trocar os campos abaixo por {{ form.as_p }} #}
+    <p>
+        <label for="username">Usuário</label>
+        <input type="text" id="username" name="username" placeholder="Digite seu usuário">
+    </p>
+
+    <p>
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha">
+    </p>
+
+</form>
+
+{# TODO backend: trocar os três botões por um único botão "Entrar" que decide a página pelo perfil #}
+<div class="botoes-entrada">
+    <a href="{% url 'lista_chamados' %}">
+        <button type="button">Entrar como solicitante</button>
+    </a>
+
+    <a href="{% url 'lista_tecnico' %}">
+        <button type="button">Entrar como técnico</button>
+    </a>
+
+    <a href="{% url 'lista_administrador' %}">
+        <button type="button">Entrar como administrador</button>
+    </a>
+</div>
+
+<a href="{% url 'home' %}">Voltar ao início</a>
+{% endblock %}

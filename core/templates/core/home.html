@@ -1,1 +1,44 @@
-<h1>aiiiii</h1>
+{% load static %}<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajuda Aqui - Gestão de chamados</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="pagina-home">
+
+    <main class="home">
+        <h1>Ajuda Aqui</h1>
+
+        <p class="home-lead">
+            Sistema de gestão de chamados de suporte: quem precisa de ajuda abre
+            um chamado e acompanha o andamento, e quem atende sabe o que fazer primeiro.
+        </p>
+
+        <a href="{% url 'login' %}">
+            <button type="button">Fazer login</button>
+        </a>
+
+        <div class="home-infos">
+            <div>
+                <h3>Solicitante</h3>
+                <p>Abre chamados e acompanha as respostas.</p>
+            </div>
+            <div>
+                <h3>Técnico</h3>
+                <p>Assume chamados em aberto e atualiza o andamento.</p>
+            </div>
+            <div>
+                <h3>Administrador</h3>
+                <p>Vê todos os chamados e gerencia os usuários.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="rodape">
+        Ajuda Aqui - Gestão de chamados
+    </footer>
+
+</body>
+</html>

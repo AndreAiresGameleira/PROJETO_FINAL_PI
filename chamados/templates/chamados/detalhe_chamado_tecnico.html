@@ -1,0 +1,7 @@
+{% extends 'base_tecnico.html' %}
+
+{% block title %}Detalhes do chamado{% endblock %}
+
+{% block content %}
+{% include 'chamados/_detalhe.html' with voltar='lista_tecnico' comentar='adicionar_comentario_tecnico' gerenciar=True %}
+{% endblock %}

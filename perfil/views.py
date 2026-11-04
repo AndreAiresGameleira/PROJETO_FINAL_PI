@@ -1,7 +1,5 @@
 from django.shortcuts import render
 
-
-# Create your views here.
 def login_view(request):
     return render(request, 'perfil/login.html', {})
 
@@ -14,8 +12,8 @@ def lista_usuarios(request):
 def criar_usuario(request):
     return render(request, 'perfil/criar_usu.html', {})
 
-def editar_usuario(request):
+def editar_usuario(request, pk):
     return render(request, 'perfil/editar_usu.html', {})
 
-def desativar_usuario(request):
+def desativar_usuario(request, pk):
     return render(request, 'perfil/desativar_usu.html', {})
