@@ -1,0 +1,40 @@
+{% extends 'base_solicitante.html' %}
+
+{% block title %}Adicionar chamado{% endblock %}
+
+{% block content %}
+<h1>Adicionar chamado</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {# TODO backend: trocar os campos abaixo por {{ form.as_p }} #}
+    <p>
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" maxlength="150">
+    </p>
+
+    <p>
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao"></textarea>
+    </p>
+
+    <p>
+        <label for="prioridade">Prioridade</label>
+        <select id="prioridade" name="prioridade">
+            <option value="baixa">Baixa</option>
+            <option value="media" selected>Média</option>
+            <option value="alta">Alta</option>
+            <option value="urgente">Urgente</option>
+        </select>
+    </p>
+
+    <button type="submit">Cadastrar chamado</button>
+
+</form>
+
+<a href="{% url 'lista_chamados' %}">
+    Voltar
+</a>
+{% endblock %}

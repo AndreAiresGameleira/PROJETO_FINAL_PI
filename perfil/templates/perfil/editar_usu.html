@@ -1,0 +1,28 @@
+{% extends 'base_administrador.html' %}
+
+{% block title %}Editar usuário{% endblock %}
+
+{% block content %}
+<h1>Editar usuário</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {# TODO backend: trocar por {{ form.as_p }} #}
+    <p><label>Tipo</label>
+        <select>
+            <option>Solicitante</option>
+            <option>Técnico</option>
+            <option>Administrador</option>
+        </select>
+    </p>
+    <p><label>Telefone</label><input type="text"></p>
+    <p><label>Setor</label><input type="text"></p>
+
+    <button type="submit">Salvar alterações</button>
+
+</form>
+
+<a href="{% url 'lista_usu' %}">Voltar</a>
+{% endblock %}

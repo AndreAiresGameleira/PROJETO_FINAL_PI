@@ -1,0 +1,7 @@
+{% extends 'base_administrador.html' %}
+
+{% block title %}Detalhes do chamado{% endblock %}
+
+{% block content %}
+{% include 'chamados/_detalhe.html' with voltar='lista_administrador' comentar='adicionar_comentario_admin' gerenciar=False %}
+{% endblock %}
